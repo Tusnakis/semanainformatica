@@ -1,0 +1,16 @@
+{% extends 'layout.html.twig' %}
+{% block main %}
+    <div id="cont-form" class="container">
+    <h4>Login de Acceso</h4>
+    {% if error %}
+        <div>{{ error.messageKey }}</div>
+    {% endif %}
+        <form action="{{ path('login') }}" method="post">
+            <label for="username">Login:</label>
+            <input type="text" id="username" name="_username" /><br><br>
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="_password" /><br><br>
+            <button type="submit">Comprobar</button>
+        </form>
+    </div>
+{% endblock %}

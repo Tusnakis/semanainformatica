@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    {% block head %}
+        <div>
+            <img src={{ asset('img/cabecerapeque.jpg') }} />
+            <p id="fecha">Hoy es: {{ "now"|date("d/m/Y") }}</p>
+        </div>
+    {% endblock %}
+    <nav class="nav justify-content-center bg-info">
+        <a class="nav-link text-white" href="{{ path('inicio') }}">INICIO</a>
+        <a class="nav-link text-white" href="{{ path('ponencias') }}">PONENCIAS</a>
+        <a class="nav-link text-white" href="{{ path('talleres') }}">TALLERES</a>
+        {% if is_granted('ROLE_ADMIN') %}
+            <a class="nav-link text-white" href="{{ path('nueva_ponencia') }}">PONENCIA++</a>
+            <a class="nav-link text-white" href="{{ path('nuevo_taller') }}">TALLER++</a>
+        {% endif %}
+        {% if is_granted('ROLE_ADMIN') %}
+            <a class="nav-link text-white" href="{{ path('logout') }}">LOGOUT</a>
+        {% elseif is_granted('ROLE_USER') %}
+            <a class="nav-link text-white" href="{{ path('logout') }}">LOGOUT</a>
+        {% else %}
+            <a class="nav-link text-white" href="{{ path('login') }}">LOGIN</a>
+        {% endif %}
+        {% if is_granted('ROLE_ADMIN') %}
+            <a class="nav-link text-white" href="{{ path('nuevo_usuario') }}">Nuevo USUARIO</a>
+        {% endif %}
+    </nav>
+    {% block main %}{% endblock %}
+        <footer class="fixed-bottom text-center bg-info">DWES 2019/2020.</footer>
+{% endblock %}

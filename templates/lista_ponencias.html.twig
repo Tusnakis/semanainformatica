@@ -1,0 +1,54 @@
+{% extends 'layout.html.twig' %}
+{% block main %}
+    <h3 id="titulo_ta_po" class="text-center">LISTA DE PONENCIAS...</h3>
+    <div class="container col-lg-10">
+        <table class="table table-sm bg-warning">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Título</th>
+                    <th>Categoría</th>
+                    <th>Likes</th>
+                    <th></th>
+                    <th></th>
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <th></th>
+                        <th></th>
+                    {% endif %}
+                </tr>
+            </thead>
+            {% if ponencias %}
+            {% for ponencia in ponencias %}
+                <tr>
+                    <td>
+                        {{ ponencia.id }}
+                    </td>
+                    <td>
+                        {{ ponencia.titulopo }}
+                    </td>
+                    <td>
+                        {{ ponencia.categoriaponencia.nombre }}
+                    </td>
+                    <td>
+                        {{ ponencia.likepo }}
+                    </td>
+                    <td>
+                        <a href="{{ path('aumentar_likepo',{'id':ponencia.id}) }}"><img src={{ asset('img/silikes.png') }} /></a>
+                    </td>
+                    <td>
+                       <a href="{{ path('disminuir_likepo',{'id':ponencia.id}) }}"> <img src={{ asset('img/nolikes.png') }} /></a>
+                    </td>
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <td>
+                            <a href="{{ path('eliminar_ponencia',{'id':ponencia.id}) }}"><img src={{ asset('img/eliminar.png') }} /></a>
+                        </td>
+                        <td>
+                            <a href="{{ path('editar_ponencia',{'id':ponencia.id}) }}">EDITAR</a>
+                        </td>
+                    {% endif %}
+                </ul>
+            {% endfor %}
+        {% endif %}
+        </table>
+    </div>
+{% endblock %}
